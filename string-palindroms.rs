@@ -4,14 +4,17 @@ fn reverse(s: &~str) -> ~str {
     s.chars_rev().collect()
 }
 
-fn get_palindroms(s: ~str) -> ~[&~str] {
+fn get_palindroms(s: ~str) -> ~[~str] {
     let mut words = ~[];
-    for q in s.split_terminator(' ') {
+    for q in s.words() {
         words.push(q.to_owned());
     }
-    println!("{:?}", words);
-    let p = words.iter().filter(|&x| reverse(x) == *x).collect();
-    p
+    let mut result = ~[];
+    let mut p = words.iter().filter(|&x| *x == reverse(x));
+    for q in p {
+        result.push(q.to_owned());
+    }
+    result   
 }
 
 fn main() {
