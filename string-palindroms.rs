@@ -1,14 +1,18 @@
 use std::io;
 
-fn reverse(s: ~str) -> ~str {
+fn reverse(s: &~str) -> ~str {
     s.chars_rev().collect()
 }
 
-fn get_palindroms(s: ~str) -> ~[~str] {
-    let words:~[~str] = s.split_terminator(' ').collect();
-    let p : ~[~str] = words.iter().filter(|x| reverse(*x) == x).collect();
+fn get_palindroms(s: ~str) -> ~[&~str] {
+    let mut words = ~[];
+    for q in s.split_terminator(' ') {
+        words.push(q.to_owned());
+    }
+    println!("{:?}", words);
+    let p = words.iter().filter(|&x| reverse(x) == *x).collect();
     p
-}   
+}
 
 fn main() {
     for line in io::stdin().lines() {
