@@ -52,7 +52,7 @@ fn main()
     a.add(0);
     a.print();
     println!("");
-    println!("searching 3: {}", a.search(3).unwrap());
+    println!("searching 3: {}", a.search(3));
     println!("searching 0: {}", a.search(0));
-    println!("searching 7: {}", a.search(7).unwrap());
+    println!("searching 7: {}", a.search(7));
 }
