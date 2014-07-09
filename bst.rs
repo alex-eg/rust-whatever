@@ -31,13 +31,13 @@ impl <T:Ord + Show> Bst<T> {
     fn print(&self) {
         match self {
             &Nil => print!("nil"),
-            &Node(ref x, ref left, ref right) =>
-                { print!("Bt({}, ", x);
-                  left.print();
-                  print!(", ");
-                  right.print();
-                  print!(")");
-                }
+            &Node(ref x, ref left, ref right) => {
+                print!("Bt({}, ", x);
+                left.print();
+                print!(", ");
+                right.print();
+                print!(")");
+            }
         }
     }
 }
@@ -49,9 +49,10 @@ fn main()
     a.add(1);
     a.add(2);
     a.add(4);
+    a.add(0);
     a.print();
     println!("");
-    println!("searching 3: {}", a.search(3));
-    println!("searching 4: {}", a.search(4));
+    println!("searching 3: {}", a.search(3).unwrap());
     println!("searching 0: {}", a.search(0));
+    println!("searching 7: {}", a.search(7).unwrap());
 }
