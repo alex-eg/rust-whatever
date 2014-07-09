@@ -7,23 +7,23 @@ enum Bst<T> {
 }
 
 impl <T:Ord + Show> Bst<T> {
-    fn search<T>(&self, v: T) -> Option<T> {
+    fn search(&self, v: T) -> Option<T> {
         match self {
             &Nil => None,
-            &Node(x, ref left, ref right) => {
-                if v == x { Some(x) }
-                else if v < x { left.search(x) }
-                else if v > x { right.search(x) }
+            &Node(ref x, ref left, ref right) => {
+                if v == *x { Some(v) }
+                else if v < *x { left.search(v) }
+                else { right.search(v) }
             }
         }
     }
 
-    fn add<T>(&mut self, v: T) -> () {
+    fn add(&mut self, v: T) -> () {
         match self {
             &Nil => *self = Node(v, box Nil, box Nil),
-            &Node(x, ref mut left, ref mut right) => {
-                if v > x { right.add(v) }
-                else if v < x { left.add(v) }
+            &Node(ref x, ref mut left, ref mut right) => {
+                if v > *x { right.add(v) }
+                else if v < *x { left.add(v) }
             }
         }
     }
@@ -31,7 +31,7 @@ impl <T:Ord + Show> Bst<T> {
     fn print(&self) {
         match self {
             &Nil => print!("nil"),
-            &Node(x, ref left, ref right) =>
+            &Node(ref x, ref left, ref right) =>
                 { print!("Bt({}, ", x);
                   left.print();
                   print!(", ");
@@ -45,10 +45,13 @@ impl <T:Ord + Show> Bst<T> {
 fn main()
 {
     let mut a: Bst<int> = Nil;
-    a.add(3i);
+    a.add(3);
     a.add(1);
     a.add(2);
     a.add(4);
     a.print();
     println!("");
+    println!("searching 3: {}", a.search(3));
+    println!("searching 4: {}", a.search(4));
+    println!("searching 0: {}", a.search(0));
 }
