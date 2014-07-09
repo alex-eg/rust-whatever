@@ -7,6 +7,17 @@ enum Bst<T> {
 }
 
 impl <T:Ord + Show> Bst<T> {
+    fn search<T>(&self, v: T) -> Option<T> {
+        match self {
+            &Nil => None,
+            &Node(x, ref left, ref right) => {
+                if v == x { Some(x) }
+                else if v < x { left.search(x) }
+                else if v > x { right.search(x) }
+            }
+        }
+    }
+
     fn add<T>(&mut self, v: T) -> () {
         match self {
             &Nil => *self = Node(v, box Nil, box Nil),
